@@ -45,4 +45,4 @@ By far I really can't find much about previous work on similar models. So I'd sa
 
 ## License
 
-MIT License.
+[MIT License](./LICENSE).
