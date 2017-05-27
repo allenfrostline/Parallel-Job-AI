@@ -1,11 +1,4 @@
-This is the ward version of the simple Tetris game. I've rewrite most of the
-codes and am now working on good heuristics. The control is exactly the same
-as in the Tetris game, so just have fun playing it!
-
-If you have any idea, please feel free to mail me, or open a new thread in
-the issues of this Gtihub project.
-
-Copyright (c) 2017 Allen Frostline <allenfrostline at gmail dot com>
+Copyright (c) 2017 Allen Frostline
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -27,20 +20,7 @@ SOFTWARE.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This is a rework of a simple Tetris game written by Kevin Chabowski. A range
-of simple heuristics are fed to the AI and by default the AI will play at
-the beginning. The original AI was spread on the Internet with no specific
-author, to which I've done several improvements.
-
-Control keys (slightly different from Kevin's original ones):
-         P - Toggle the instant mode for AI
-         Q - Exit the whole game
-Left/Right - Move left or right
-    Escape - Quit this round of game
-    Return - Manual instant drop
-     Space - Replay the game
-
-Copyright (c) 2017 Allen Frostline <allenfrostline at gmail dot com>
+Copyright (c) 2017 Allen Frostline
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -62,27 +42,7 @@ SOFTWARE.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Based off: https://gist.github.com/kch42/565419/download
-
-NOTE FOR WINDOWS USERS:
-You can download a 'exefied' version of this game at:
-http://kch42.de/progs/tetris_py_exefied.zip
-If a DLL is missing or something like this, write an E-Mail (kevin@kch42.de)
-or leave a comment on this gist.
-
-Very simple tetris implementation
-
-Control keys:
-      Down - Drop stone faster
-Left/Right - Move stone
-        Up - Rotate stone clockwise
-    Escape - Quit game
-         P - Pause game
-    Return - Instant drop
-
-Have fun!
-
-Copyright (c) 2010 'Kevin Chabowski'<kevin@kch42.de>
+Copyright (c) 2010 Kevin Chabowski
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the 'Software'), to deal
