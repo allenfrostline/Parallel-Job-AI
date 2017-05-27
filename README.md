@@ -41,7 +41,7 @@ Requires `pygame` (which isn't on pip). You can download [here](https://bitbucke
 
 ## History
 
-Well if you insist, I'd really like to tell you an old story about a Russian video game designer called Alexey Pajitnov...
+By far I really can't find much about previous work on similar models. So I'd say it is novel.
 
 ## License
 
