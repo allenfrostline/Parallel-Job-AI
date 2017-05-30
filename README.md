@@ -26,6 +26,16 @@ Requires `pygame` (which isn't on pip). You can download [here](https://bitbucke
 
 ## Usage
 
+How to install and open the game:
+
+```bash
+git clone https://github.com/allenfrostline/Tetris-AI
+cd Ward-AI-master
+python2.7 ward.py
+```
+
+How to play the game:
+
 |KEY|COMMAND|
 |---:|:---|
 |Down|Drop stone faster|
