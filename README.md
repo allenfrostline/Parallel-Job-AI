@@ -14,6 +14,12 @@ In this Tetris game board, each column stands for a bed in the ward and each row
 
 From the model specification, it is clear that we cannot exceed row-sum of 12 and max-height of 28, and our very basic objective is the survive the game as long as possible.
 
+These are the files:
+
+1. `ward.py`: Run this file to play the game
+2. `ai.py`: ?
+3. `heuristic.py`: ?
+
 ## Dependencies
 
 Requires `pygame` (which isn't on pip). You can download [here](https://bitbucket.org/pygame/pygame/downloads). Apart from this, requires `copy`, `threading`, `random`, `collections` and `numpy`.
