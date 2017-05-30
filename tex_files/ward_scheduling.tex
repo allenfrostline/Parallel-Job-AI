@@ -1,0 +1,79 @@
+\documentclass{article}
+
+\usepackage{standardStyle}
+
+\begin{document}
+Some comments
+
+\begin{itemize}
+\item Nice graphs and tetris model!
+\item I guess I would use notation like $d_k^{(i)}$ to clarify that time runs as a function of time $k$, but this is of course an entirely personal choice of notation.
+\item Also, as $a<b$, I would prefer to use $a$ for the days before the surgery, and $b$ for the days after. 
+\item I am a bit worried about the lack of discussion of related work and  embedding in the literature. Is this   problem new (if so, how can we defend that it is indeed new, how does it relate to other work, in what respects is it similar/different?), or has it been discussed earlier (if so, where/by whom)? BTW, the literature review is very important, if you ever want to turn the work into a paper. What makes this problem relevant? 
+\item The problem is also different from what we discussed earlier. I still like the problem you describe, but, once more, it is different. Below I'll elaborate on this. 
+\item In the recursion, there is a $+1$, I guess that it for the day the operation takes place. Is that true?
+\item Formulate the objective in symbols/mathematical notation., for an example, see below. Can you formulate the minimization of the height in math terms?
+\item Your problem is similar to a production system in which there is one bottleneck station with 7 parallel machines. Each job has a certain routing. The planned time from the first station to the bottleneck corresponds to $b^{(i)}_k$ and  the time  from the bottleneck to the end of the network is $a_{k}^{(i)}$, and $h_k$ is the number of hours required at the bottleneck. When we plan in days, we get your problem. Very interesting problem BTW.  I like the problem you wrote down, but perhaps we should no longer formulate/frame it as a bed/surgery problem, but as a production problem.
+\item How to characterize the jobs? Interarrival times, job sizes/operation duration, time interval before and after the surgery.
+\end{itemize}
+
+The problem we initially discussed is like this. Suppose there are maximally $N$ beds available; $N$ is so big that there is no practical limitations; we use it only to keep the summations finite. Define the number of required beds on day $d$ as 
+\begin{equation*}
+  B_d = \sum_{k=1}^T \sum_{i=1}^N \1{d_k^{(i)}=d},
+\end{equation*}
+where $T$ is the scheduling horizon  (I introduce this just to simplify.)
+Define the average bed load as
+\begin{equation*}
+  \mu = \frac1T\sum_{k=1}^T B_k.
+\end{equation*}
+We want to minimize the daily variance in the bed load, that is,
+\begin{equation*}
+  \min \frac 1T \sum_{k=1}^T (B_k - \mu)^2.
+\end{equation*}
+Now we don't know $\mu$ upfront, but that is not a problem because, 
+\begin{equation*}
+  \begin{split}
+\frac 1 T\sum_{k=1}^T (B_k - \mu)^2 
+&=  \frac 1 T \sum_{k=1}^T B_k^2 - \mu^2.
+  \end{split}
+\end{equation*}
+Hence, we can focus on 
+\begin{equation*}
+\min  \sum_{k=1}^T B_k^2.
+\end{equation*}
+
+
+Now it is a bit difficult to include the constriant with respect to $H_b$, but assuming that there are many jobs, we can just require that 
+\begin{equation*}
+  H_b = 10, \forall b=1,\ldots, T,
+\end{equation*}
+where $H_b$ is as you defined, and the 10 is the (arbritrary) threshold on daily operation hours.  When there are many jobs, it must be possible to ensure that this constraint is satisfied. 
+
+Otherwise we can reformulate the cost function (that we want to minimize) as 
+\begin{equation*}
+  \alpha \sum_{k=1}^T H_k + \sum_{k=1}^T B_k^2,
+\end{equation*}
+where $\alpha$ is a (positive) weight. BTW, I don't quite like this multi-criterion objective function; how to set $\alpha$? When $\alpha\ll 1$, we find the variance in $B_d$ most important, so why include the first term at all. If, on the other hand, $\alpha \gg 1$, why include the second? And if $\alpha \approx 1$, why should we want this? As a matter of fact, I don't like this approach at all. 
+
+Perhaps we should do it like this: we put a constraint on the $\sum B_k^2$ and then try to maximize 
+the total amount of service given during the interval $[0,T]$, i.e., 
+\begin{equation*}
+\max \sum_{k=1}^T H_k.  
+\end{equation*}
+
+Extensions.
+\begin{itemize}
+\item Shouldn't we introduce release and duedates for the jobs?
+\item Suppose we would introduce order acceptance, i.e., we can reject or accept orders. The accepted orders/jobs are guaranteed  to be served somewhere within the release and due date. 
+\item 
+\end{itemize}
+
+
+
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
