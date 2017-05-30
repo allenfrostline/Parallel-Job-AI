@@ -1,6 +1,6 @@
 # Ward AI
 
-This is a Tetris-like game with a heuristic-driven AI player. Rather than `Python 3.6`, everything is written is `Python 2.7` due to poor performance of `pygame-c36` on Mac OS.
+This is a Tetris-like game with a heuristic-driven AI player. Rather than `Python 3.6`, everything is written is `Python 2.7` due to poor performance of `pygame-c36` on Mac OS. However, on linux it works fine with `Python 3`.
 
 The original [Tetris game](https://github.com/allenfrostline/Tetris-AI), which has been simplified and implemented with the AI, is based on this [non-AI version](https://gist.github.com/kch42/565419/download).
 
@@ -16,7 +16,7 @@ From the model specification, it is clear that we cannot exceed row-sum of 12 an
 
 ## Dependencies
 
-Requires `pygame` (which isn't on pip). You can download [here](https://bitbucket.org/pygame/pygame/downloads). Apart from this, requires `copy`, `threading`, `random`, `collections` and `numpy`.
+Requires `pygame` (which isn't on `pip`, but certainly works with `pip3`). You can download [here](https://bitbucket.org/pygame/pygame/downloads). Apart from this, requires `copy`, `threading`, `random`, `collections` and `numpy`.
 
 ## Usage
 
