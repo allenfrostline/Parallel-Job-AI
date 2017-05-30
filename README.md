@@ -20,10 +20,11 @@ Requires `pygame` (which isn't on pip). You can download [here](https://bitbucke
 
 ## Usage
 
-How to open the file:
+How to install and open the game:
 
 ```bash
-cd Ward-AI
+git clone https://github.com/allenfrostline/Tetris-AI
+cd Ward-AI-master
 python2.7 ward.py
 ```
 
