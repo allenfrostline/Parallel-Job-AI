@@ -20,6 +20,15 @@ Requires `pygame` (which isn't on pip). You can download [here](https://bitbucke
 
 ## Usage
 
+How to open the file:
+
+```bash
+cd Ward-AI
+python2.7 ward.py
+```
+
+How to play the game:
+
 |KEY|COMMAND|
 |---:|:---|
 |Down|Drop stone faster|
