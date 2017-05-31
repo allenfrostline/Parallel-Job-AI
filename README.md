@@ -55,7 +55,7 @@ How to play the game:
 
 By far I really can't find much about previous work on similar models. So I'd say it is novel.
 
-# To-do
+## To-do
 
 1. Add more heuristics.
 2. Implement the learning part.
