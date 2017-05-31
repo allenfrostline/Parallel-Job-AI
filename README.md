@@ -1,4 +1,4 @@
-# Ward AI
+# Parallel Job AI
 
 This is a Tetris-like game with a heuristic-driven AI player. Rather than `Python 3.6`, everything is written is `Python 2.7` due to poor performance of `pygame-c36` on Mac OS. However, on linux it works fine with `Python 3`.
 
@@ -6,19 +6,15 @@ The original [Tetris game](https://github.com/allenfrostline/Tetris-AI), which h
 
 ## Model description
 
-Now we run a hospital with a neural ward of 6 beds. The operation room for neural surgeries opens 12 hours a day. Assume Poisson patient arrival at rate 2 per day. For each patient, the surgery can take at most 4 hours, and the total number of days for him/her to stay at the ward (including the surgery day) must not exceed 5. We want to schedule the patients for the coming 4 weeks in such a way that the bed occupancy is smoothed and the daily surgery hours are as fully used as possible (but should never be exceeded).
-
-<img src='./doc/img/play.png' width=50%/><img src='./doc/img/result.png' width=50%/>
-
-In this Tetris game board, each column stands for a bed in the ward and each row for a day, e.g. the bottom left cell stands for the occupancy status of bed 1 on the next day. Each patient is symbolized to an `I`-stone in Tetris games, though with different lengths and two colors. Gray boxes means days in the ward but with no surgery, and yellow boxes with numbers indicate the operation day and surgery hours needed. 
-
-From the model specification, it is clear that we cannot exceed row-sum of 12 and max-height of 28, and our very basic objective is the survive the game as long as possible.
+In this Tetris game board, each column stands for a production line and each row for a day. For example, the bottom left cell stands for the operation status of line 1 on the next day. Each job requires a certain number of days to process, among which there is one day for several hours of painting. This is symbolized as an `I`-stone in the Tetris game, though with different lengths and two colors. Gray boxes means the production line is in operation but not in painting. Yellow boxes means the job is under painting this day. The factory is faced with a bottleneck for painting, specifically, the daily painting should never exceed 12, which corresponds to the row-sum in the game board, and for certain reasons the longest schedule should not exceed four weeks, restricting the max-height to be no more than 28. Our very basic objective is the survive the game as long as possible.
 
 These are the files:
 
-1. `ward.py`: Run this file to play the game
-2. `ai.py`: ?
-3. `heuristic.py`: ?
+1. `job.py`: Run this file to play the game.
+2. `ai.py`: Main program for the AI player.
+3. `heuristic.py`: A list of heuristics.
+
+<img src='./doc/img/play.png' width=50%/><img src='./doc/img/result.png' width=50%/>
 
 ## Dependencies
 
@@ -29,8 +25,8 @@ Requires `pygame` (which isn't on `pip`, but certainly works with `pip3`). You c
 How to install and open the game:
 
 ```bash
-git clone https://github.com/allenfrostline/Tetris-AI
-cd Ward-AI-master
+git clone https://github.com/allenfrostline/Parallel-Job-AI
+cd Parallel-Job-AI-master
 python2.7 ward.py
 ```
 
@@ -58,6 +54,11 @@ How to play the game:
 ## History
 
 By far I really can't find much about previous work on similar models. So I'd say it is novel.
+
+# To-do
+
+1. Add more heuristics.
+2. Implement the learning part.
 
 ## License
 
