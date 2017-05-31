@@ -1,4 +1,4 @@
-from ward import THRESHOLD, COLS, ROWS
+from factory import BOTTLENECK, COLS, ROWS
 
 # Below are several intrumental functions
 def is_block(cell):
@@ -8,7 +8,7 @@ def is_empty(cell):
     return cell in [0, -2]
 
 def u_score(hours, k):
-    return abs(k**2 / (hours - 1e-2) + 1. / (THRESHOLD - hours + 1e-2) - (k + 1)**2 / THRESHOLD) / 4
+    return abs(k**2 / (hours - 1e-2) + 1. / (BOTTLENECK - hours + 1e-2) - (k + 1)**2 / BOTTLENECK) / 4
 
 # Below are all the heuristics with scores normalized to [0,1] and weights assigned in ai.py
 def max_height(state):
@@ -36,11 +36,11 @@ def max_hours(state):
 def scv_hours(state):
     return 1e-2 / (state.scvhours + 1e-2)
 
-def avg_beds(state):
-    return state.avgbeds / COLS
+def avg_machines(state):
+    return state.avgmachines / COLS
 
-def max_beds(state):
-    return state.avgbeds / COLS
+def max_machines(state):
+    return state.avgmachines / COLS
 
-def scv_beds(state):
-    return 1e-2 / (state.scvbeds + 1e-2)
+def scv_machines(state):
+    return 1e-2 / (state.scvmachines + 1e-2)

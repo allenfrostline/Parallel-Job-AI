@@ -10,7 +10,7 @@ In this Tetris game board, each column stands for a production line and each row
 
 These are the files:
 
-1. `job.py`: Run this file to play the game.
+1. `machine.py`: Run this file to play the game.
 2. `ai.py`: Main program for the AI player.
 3. `heuristic.py`: A list of heuristics.
 
@@ -25,9 +25,9 @@ Requires `pygame` (which isn't on `pip`, but certainly works with `pip3`). You c
 How to install and open the game:
 
 ```bash
-git clone https://github.com/allenfrostline/Parallel-Job-AI
-cd Parallel-Job-AI-master
-python2.7 ward.py
+git clone https://github.com/allenfrostline/Parallel-Machine-AI
+cd Parallel-Machine-AI-master
+python2.7 machine.py
 ```
 
 How to play the game:
