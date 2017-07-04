@@ -1,0 +1,154 @@
+\documentclass{article}
+\title{$Q$ learning}
+\author{N.D. Van Foreest}
+\usepackage{standardStyle}
+
+\begin{document}
+\maketitle
+
+I want to apply $Q$ learning to the EOQ model. First I want to get
+the tabular $Q$ learning algorithm to work.  For this,  I copy from
+Bertsekas, Vol 2, Section 6.4 on $Q$ learning.  Then I'll apply it to the EOQ model.
+
+
+\section{Q factors}
+\label{sec:q-factors}
+
+
+Define the $Q$-factors
+as
+\begin{equation*}
+  Q^*(i,u) = \sum_{j} p_{ij}(u)\left[g(i,u, j) + \alpha J^*(j)\right],
+\end{equation*}
+where $g(i, u, j)$ is the reward of taking action $u$ in state $i$ and end up in state $j$, and $J^*(j)$ is the value of continuingin state $j$. 
+With this expression for $Q^*(i,u)$ the dynamic programming (Bellman) equations take the form
+\begin{equation*}
+  J^*(i) 
+= \max_{u\in U(i)}\left\{\sum_{j} p_{ij}(u)\left[g(i,u, j) + \alpha J^*(j)\right]\right\}
+= \max_{u\in U(i)} Q^*(i,u).
+\end{equation*}
+From this we can get an optimality equation for  the $Q$ factors:
+\begin{align*}
+  J^*(j) &= \max_{u'\in U(j)} Q^*(j,u') \iff \\
+\alpha J^*(j) &=   \alpha \max_{u'\in U(j)} Q^*(j,u') \iff \\
+  \sum_{j} p_{ij}(u) \alpha J^*(j) &=   \sum_{j} p_{ij}(u) \alpha \max_{u'\in U(j)} Q^*(j,u') \iff \\
+  \sum_{j} p_{ij}(u)\left[g(i,u,j) +  \alpha J^*(j)\right] &=   \sum_{j} p_{ij}(u) \left[g(i,u,j) + \alpha \max_{u'\in U(j)} Q^*(j,u')\right] \iff \\
+  Q^*(i,u) &=   \sum_{j} p_{ij}(u) \left[g(i,u,j) + \alpha \max_{u'\in U(j)} Q^*(j,u')\right].
+\end{align*}
+
+We can use this to compute $Q^*$ by value-iteration.  Start with
+$Q(i,u)=0$ (or some other set of random values), and iterate according to
+\begin{equation}\label{eq:1}
+  Q(i,u) :=   \sum_{j} p_{ij}(u) \left[g(i,u,j) + \alpha \max_{u'\in U(j)} Q(j,u')\right].
+\end{equation}
+
+Now we can do two things for $Q$-learning.  We simulate $j$ and $g(i,u,j)$ from the
+pair $(i,u)$, take $\alpha=1$ to obtain a total cost during a finite horizon, and replace the above expectation by the update rule
+\begin{equation*}
+  Q(i,u)  = g(i,u,j) + \max_{u'\in U(j)} Q(j,u').
+\end{equation*}
+To explore and exploit and we can choose to use
+$u' = \argmax Q^*(j,u')$ with, for instance, probability $0.9$ and
+otherwise take $u'$ uniform in $U(j)$.
+
+The other thing is to introduce a damping factor~$\gamma\in[0,1]$ in~(\ref{eq:1}) so that we obtain 
+\begin{equation*}
+  \begin{split}
+  Q(i,u) 
+&=  (1-\gamma)Q(i,u) + \gamma \sum_{j} p_{ij}(u) \left[g(i,u,j) + \alpha \max_{u'\in U(j)} Q(j,u')\right] \\
+&=  Q(i,u) + \gamma \left(\sum_{j} p_{ij}(u) \left[g(i,u,j) + \alpha \max_{u'\in U(j)} Q(j,u')\right] - Q(i,u)\right).
+  \end{split}
+\end{equation*}
+Now we simulate $j$ and $g(i,u,j)$ from the
+pair $(i,u)$ and replace the above expectation by the update rule
+\begin{equation}\label{eq:3}
+  \begin{split}
+  Q(i,u) 
+&:=  Q(i,u) + \gamma \left(g(i,u,j) + \alpha \max_{u'\in U(j)} Q(j,u')- Q(i,u)\right).
+  \end{split}
+\end{equation}
+To explore and exploit  we can use the same trick as before.
+
+\section{An Application to an inventory system that satisfies the EOQ assumptions}
+
+
+Standard EOQ model under periodic review such that the review epochs are synchronized with the demand arrivals.. Orders are placed at the
+start of a period and arrive right away, i.e., immediate replenishments.
+
+\begin{align*}
+  D&= \quad \text{Demand per period},\\
+  h&= \quad \text{Holding cost due at the end of the period},\\
+  p&= \quad \text{Selling price per unit},\\
+  K&= \quad \text{Ordering cost per order},\\
+\end{align*}
+
+Let $I_n$ be the inventory at the end of the period and $Q_n$ the order size. Assuming that replenishments arrive at the start of the period, $I_n$ satisfies the recursion
+\begin{align*}
+S_n&=\min\{I_{n-1} + Q_n, D_n\}, \\
+I_n&=\max\{I_{n-1}+Q_n - s_n, I_{\max}\}, 
+\end{align*}
+where $S_n$ is the sales during period $n$.
+Thus, in the notation of Section~\ref{sec:q-factors},  the inventory $I_{n-1}=i$, the action  
+$u_n=Q_n$ and  $j=I_n$. With this, it is easy to compute $p_{ij}(u)$. 
+
+The end-of-period reward is given by
+\begin{equation*}
+ R_n = p s_n - h I_n - K \1{Q_n > 0}.
+\end{equation*}
+Thus, $g(i,u, j) = R_n$.
+
+The state space is  $I_n \in \{0, 1, \ldots, I_{\max}\}$, the action space is $\{0, \ldots, Q_{\max}\}$. 
+
+In the learning procedure we want to reduce the exploration rate while the number of episodes progresses. We take
+\begin{equation*}
+  \beta(i) = 0.8 + 0.2\frac i N,
+\end{equation*}
+if $i$ is the current episode of $N$ episodes in total. I also tried the rule
+\begin{equation*}
+  \beta(i) = 0.8 
+\end{equation*}
+for all $i$. This also gave good results.
+
+
+\begin{figure}[tb]
+  \centering
+  \begin{tabular}[h]{cc}
+%\input{eoq_learning_scenario_1}\\
+  \end{tabular}
+  \caption{piet}
+\end{figure}
+
+
+\lstinputlisting[language=Python]{eoq.py}
+
+\section{First test}
+
+TBD: Include results.
+
+\section{(s,S) -policies}
+\label{sec:s-s-policies}
+
+TBD: Include results.
+
+
+\section{Possible Next Steps}
+\label{sec:next-steps}
+
+
+\begin{itemize}
+\item One way that must give much better results is to use~(\ref{eq:1}) for the iteration, rather than use~(\ref{eq:3}). That must be a major improvement. Of course, this doesn't work for large problems, but is of interest to see how these two compare.
+\item (S,s) ?
+\item (Q,r) policy
+\item use neural network. Check the ice/hole/example on how to do this. 
+\end{itemize}
+
+
+
+
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
