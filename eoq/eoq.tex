@@ -6,6 +6,13 @@
 \begin{document}
 \maketitle
 
+\tableofcontents
+
+\section{Intro}
+\label{sec:intro}
+
+
+
 I want to apply $Q$ learning to the EOQ model. First I want to get
 the tabular $Q$ learning algorithm to work.  For this,  I copy from
 Bertsekas, Vol 2, Section 6.4 on $Q$ learning.  Then I'll apply it to the EOQ model.
@@ -20,7 +27,7 @@ as
 \begin{equation*}
   Q^*(i,u) = \sum_{j} p_{ij}(u)\left[g(i,u, j) + \alpha J^*(j)\right],
 \end{equation*}
-where $g(i, u, j)$ is the reward of taking action $u$ in state $i$ and end up in state $j$, and $J^*(j)$ is the value of continuingin state $j$. 
+where $g(i, u, j)$ is the reward of taking action $u$ in state $i$ and end up in state $j$, and $J^*(j)$ is the value of continuing in state $j$. 
 With this expression for $Q^*(i,u)$ the dynamic programming (Bellman) equations take the form
 \begin{equation*}
   J^*(i) 
@@ -42,8 +49,8 @@ $Q(i,u)=0$ (or some other set of random values), and iterate according to
   Q(i,u) :=   \sum_{j} p_{ij}(u) \left[g(i,u,j) + \alpha \max_{u'\in U(j)} Q(j,u')\right].
 \end{equation}
 
-Now we can do two things for $Q$-learning.  We simulate $j$ and $g(i,u,j)$ from the
-pair $(i,u)$, take $\alpha=1$ to obtain a total cost during a finite horizon, and replace the above expectation by the update rule
+Now we can do two things for $Q$-learning.  The first is to  simulate $j$  and $g(i,u,j)$ from the
+pair $(i,u)$ (see below how to do this), and take $\alpha=1$ to obtain a total cost during a finite horizon, and replace the above expectation by the update rule
 \begin{equation*}
   Q(i,u)  = g(i,u,j) + \max_{u'\in U(j)} Q(j,u').
 \end{equation*}
@@ -51,7 +58,7 @@ To explore and exploit and we can choose to use
 $u' = \argmax Q^*(j,u')$ with, for instance, probability $0.9$ and
 otherwise take $u'$ uniform in $U(j)$.
 
-The other thing is to introduce a damping factor~$\gamma\in[0,1]$ in~(\ref{eq:1}) so that we obtain 
+The second thing is to introduce a damping factor~$\gamma\in[0,1]$ in~(\ref{eq:1}) so that we obtain 
 \begin{equation*}
   \begin{split}
   Q(i,u) 
@@ -68,6 +75,46 @@ pair $(i,u)$ and replace the above expectation by the update rule
   \end{split}
 \end{equation}
 To explore and exploit  we can use the same trick as before.
+
+\begin{remark}
+  To simulate $j$ from the pair $(i,u)$,  we can use the transition probabilities $p_{ij}(u)$ as follows. Let $J$ be the next state (random variable) from state $(i,u)$. Then set $\P{J=j}_{(i,u)} = p_{ij}(u)$.  Now that we have generated the next state $j$ from $(i,u)$ we can compute the reward $g(i,u,j)$. 
+\end{remark}
+
+
+\section{Using Heuristics To initialize the $Q$ values}
+\label{sec:using-heuristics-as}
+
+Suppose we ask a human to solve the optimization problem at hand. Of course we don't expect that the human player obtains an optimal solution, but we like to use the actions of the human to give the optimizer a head start. There must  be a number of ways to achieve this. So, lets assume the user played the game a few times. (I also assume for ease that the player took the same actions in the same state. This is not true of course, but we can tackle this issue later.). Now we have a trace $T = ((i_1,u_1), (i_2,u_2),\ldots)$ (so the user chose action $u_1$ in state $i_1$, and so on.). In other words, a trace is the set of states and actions that occured during the game played by the human.  (Here a trace is an ordered set, i.e., a tuple, of how the game proceeded.)
+
+Once we have a trace, or a few traces, we need to initialze the $Q$ values to start the learning algorithm. One simple way is like this: 
+\begin{equation*}
+  Q(i,u) = 
+  \begin{cases}
+    \max_j g(i,u,j),  &\text{ if } (i,u) \in T, \\
+    0  &\text{ if } (i,u) \not \in T.
+  \end{cases}
+\end{equation*}
+Assume here that $g(i,u,j)\geq 0$ for all $i, u, j$.  For inventory or scheduling problems with infinite horizon (so there is no $\partial$) but a reward per step (acceptance of a job), this initialization might be ok. 
+
+This choice is not ok if $g=0$ for many $i,u,j$, and when the player only gets a reward at the end of the game, like in chess or go. So, assuming that the player plays the game until it finishes,  then let $(i_n, u_n)$ be the finishing  state of the game, and $n$ the finishing time. As the game stopped here, it must be that $g(i_n, u_n, \partial)>0$, where $\partial$ is the coffin(finish) state). For instance, $\partial = \text{ mate }$ for chess. Then set 
+\begin{equation*}
+  Q(i,u) = 
+  \begin{cases}
+    g(i_n,u_n,\partial),  &\text{ if } (i,u) \in T, \\
+    0  &\text{ if } (i,u) \not \in T.
+  \end{cases}
+\end{equation*}
+
+
+
+
+
+\begin{enumerate}
+\item How to handle different choices of the player in the same state $(i,u)$? 
+\item There is some explanation in Sutton's book on how to use traces to update the $Q$-values. I forgot where precisely, but I suspect it is in chapter 4.
+\item Isn't there anything in Bertsekas, dynamic progamming volume 2,  on this too? I don't think so, but it might be interesting to check.
+\end{enumerate}
+
 
 \section{An Application to an inventory system that satisfies the EOQ assumptions}
 
@@ -119,19 +166,19 @@ for all $i$. This also gave good results.
 \end{figure}
 
 
-\lstinputlisting[language=Python]{eoq.py}
+% \lstinputlisting[language=Python]{eoq.py}
 
-\section{First test}
+\subsection{First test}
 
 TBD: Include results.
 
-\section{(s,S) -policies}
+\subsection{(s,S) -policies}
 \label{sec:s-s-policies}
 
 TBD: Include results.
 
 
-\section{Possible Next Steps}
+\subsection{Possible Next Steps}
 \label{sec:next-steps}
 
 
@@ -141,9 +188,6 @@ TBD: Include results.
 \item (Q,r) policy
 \item use neural network. Check the ice/hole/example on how to do this. 
 \end{itemize}
-
-
-
 
 
 \end{document}
