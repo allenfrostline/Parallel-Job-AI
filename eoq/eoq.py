@@ -1,8 +1,10 @@
+#!/usr/bin/env python
+
 import numpy as np
 import matplotlib.pylab as plt
-from matplotlib2tikz import save as tikz_save
-
+# from matplotlib2tikz import save as tikz_save
 from matplotlib import style
+np.set_printoptions(linewidth=1000)
 style.use('ggplot')
 
 
@@ -57,15 +59,15 @@ def run(scenario):
     EOQ = np.sqrt(2*K*D/h)
     print("EOQ: ", EOQ)
 
-    fig = plt.figure()
+    plt.figure()
     for i in action_space:
         plt.plot(trace[:,i], 'o-', markersize=2, label=i)
     plt.xlabel('episode')
-    # plt.title('Demand and demand during leadtime')
+    plt.title('Demand and demand during leadtime')
     plt.grid(True)
     plt.legend(loc='center right')
     plt.show()
-    fname = 'eoq_learning_{}.tex'.format(scenario['name'])
+    # fname = 'eoq_learning_{}.tex'.format(scenario['name'])
     # tikz_save(fname, figureheight='5cm', figurewidth='12cm')
 
 def max_total(scenario):
@@ -109,7 +111,7 @@ scenario_1 = {
     #'beta': lambda x: 0.8 + 0.2*x/2000
     }
 
-#run(scenario_1)
+run(scenario_1)
 
 scenario_2 = {
     'name': "scenario_2",
