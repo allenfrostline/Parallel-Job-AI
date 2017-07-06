@@ -21,6 +21,24 @@ Yeah I know `tikz`. Actually I've been using `tikz` to draw graphs in my lecture
 
 July 06. Yang
 
-I've just checked into the dependencies of `matplotlib2tikz` and it turned out that the `pillow` package, which is required by it, only supports `py3.4`. I get lucky as I have multiple python environments on my computer and the `sS.py` worked when I use `python3.4 sS.py`.
+I've just checked into the dependencies of `matplotlib2tikz` and it turned out that the `pillow` package, which is required by it, only supports `py3.4`. I get lucky as I have multiple python environments on my computer and the `sS.py` worked when I use
+
+```python 
+python3.4 sS.py
+```
 
 I write it down here in case of any future problems.
+
+---
+
+July 06. Yang
+
+I just noticed your `communication.tex` file. It's nice but I think a `.tex` for chatting may be of too much work. Using markdown, there's no need to compile every time. Also, $\LaTeX$ works perfectly here. For your consideration, I recommend the application `Moediter` for effortless markdown editing and previewing on Ubuntu. 
+
+This afternoon, I've read the sections by Bertsekas about approximate dynamic programming, including the section 6.5 on Q-learning. However, I still think the following formula given by Wikipedia is the most informative:
+
+![Q-learning](https://wikimedia.org/api/rest_v1/media/math/render/svg/390d024c2ee2a2c2f709642401a3a7b44f7b2e4e)
+
+As for Flappybird, I find this [repository](https://enhuiz.github.io/flappybird-ql/). The author used javascript but the result is fascinating. It takes less than 2 min to converge.
+
+I'm now really reading through the `sS.py` file.
