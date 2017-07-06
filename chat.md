@@ -42,3 +42,14 @@ This afternoon, I've read the sections by Bertsekas about approximate dynamic pr
 As for Flappybird, I find this [repository](https://enhuiz.github.io/flappybird-ql/). The author used javascript but the result is fascinating. It takes less than 2 min to converge.
 
 I'm now really reading through the `sS.py` file.
+
+---
+
+July 6, NIcky
+
+Its ok to remove the communications file after you have read it.
+
+I'll check the flappybird files. 2 minutes is impressive.
+
+Let me know if you have questions about the ss.py file.  I wanted to see how far I can get with this inventory model, because I know the optimal policy, so it is easy to provide the RA (reinforcement algo) with a hint on what a good policy should be.
+
