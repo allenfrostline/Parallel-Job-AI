@@ -17,12 +17,13 @@
 
 import numpy as np
 import matplotlib.pylab as plt
-from matplotlib2tikz import save as tikz_save
+# from matplotlib2tikz import save as tikz_save
 
 from matplotlib import style
 style.use('ggplot')
 
 np.random.seed(3)
+np.set_printoptions(linewidth=1000)
 
 # demand function
 def D():
@@ -103,11 +104,11 @@ def print_Q():
     print("EOQ: ", EOQ)
 
 
-def plot_decision_trace(trace):
+def plot_decision_trace(trace, scenario):
     # Plot the optimal decision (according to the Q values) per state
     # as a function of the period
 
-    fig = plt.figure()
+    plt.figure()
     for i in action_space:
         plt.plot(trace[:,i], 'o-', markersize=2, label=i)
     plt.xlabel('episode')
@@ -115,7 +116,7 @@ def plot_decision_trace(trace):
     plt.grid(True)
     plt.legend(loc='center right')
     plt.show()
-    fname = 'eoq_learning_{}.tex'.format(scenario['name'])
+    # fname = 'eoq_learning_{}.tex'.format(scenario['name'])
     # tikz_save(fname, figureheight='5cm', figurewidth='12cm')
 
 
@@ -132,5 +133,5 @@ scenario_1 = {
 
 trace = run(scenario_1)
 print_Q()
-plot_decision_trace(trace)
+plot_decision_trace(trace, scenario_1)
 
