@@ -12,3 +12,7 @@ Sure. Like this a bit of delay in downloading is no problem. Git will handle it.
 I just checked your changes to eoq.py. No problem. Just in case you don't know, tizk is a really nice package, although programming in it is hard/strange. Matplot2tikz is really useful. 
 
 ----
+
+July 06. Yang
+
+Yeah I know `tikz`. Actually I've been using `tikz` to draw graphs in my lecture notes, and mindmaps for final reviews. The problem is, as you mentioned, it is not user-friendly at all. I'm having an issue importing the `matplot2tikz` package. I'll fixed it on my computer.
