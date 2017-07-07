@@ -28,7 +28,7 @@ np.set_printoptions(linewidth=1000)
 # demand function
 def D():
     # For stochastic  demand: 
-    return np.random.randint(3,5)
+    return np.random.randint(1,5)
     # For deterministic demand
     # return 4
 
@@ -125,7 +125,7 @@ scenario_1 = {
     'name': "scenario_1",
     'lr': .05,
     'y': .99,
-    'length_episode': 100,
+    'length_episode': 1000,
     'num_episodes': 5000,
     'beta': lambda x: 0.5, 
     # 'beta': lambda x: 0.8 + 0.2*x/2000
@@ -133,5 +133,5 @@ scenario_1 = {
 
 trace = run(scenario_1)
 print_Q()
-plot_decision_trace(trace, scenario_1)
+#plot_decision_trace(trace, scenario_1)
 

@@ -58,3 +58,16 @@ Let me know if you have questions about the ss.py file.  I wanted to see how far
 July 07, Yang
 
 Hi. I've read context about s,S policy and the EOQ problem, and yes I agree it's a good starting point. As for the stochastic demand issue, I lowered the learning rate you set (according to my experience in using supervised learning algorithms), and extend the number of episodes. The results seemed quite better.
+
+
+------------
+
+7/7 NIcky
+
+thanks. Yesterday I read about setting the learning rate to something like the value you changed it to. I think I copied the value in the wrong way from some example code.
+
+Do you know how to get the sS example to something that can be used by keras, or some other library. The reason is to speed up the numerical work. Or doesn't that help?
+
+The sS policy is interesting. To prevent loss it is best to set s to something like the maximal demand (assuming that the demand is bounded), and then order to some S. This S must be related to the cost of ordering and holding cost.
+
+I'll play with the code a bit tonight.
