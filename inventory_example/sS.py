@@ -28,9 +28,9 @@ np.set_printoptions(linewidth=1000)
 # demand function
 def D():
     # For stochastic  demand: 
-    # return np.random.randint(3,5)
+    return np.random.randint(3,5)
     # For deterministic demand
-    return 4
+    # return 4
 
 
 h = 1  # holding cost per unit per time
@@ -109,7 +109,7 @@ def plot_decision_trace(trace, scenario):
     # as a function of the period
 
     plt.figure()
-    for i in action_space:
+    for i in action_space[::-1]: # to make the I=0 line on the top
         plt.plot(trace[:,i], 'o-', markersize=2, label=i)
     plt.xlabel('episode')
     # plt.title('Demand and demand during leadtime')
@@ -123,12 +123,12 @@ def plot_decision_trace(trace, scenario):
 # Set learning parameters
 scenario_1 = {
     'name': "scenario_1",
-    'lr': .85,
+    'lr': .05,
     'y': .99,
     'length_episode': 100,
-    'num_episodes': 3000,
-    'beta': lambda x: 0.8, 
-    #'beta': lambda x: 0.8 + 0.2*x/2000
+    'num_episodes': 5000,
+    'beta': lambda x: 0.5, 
+    # 'beta': lambda x: 0.8 + 0.2*x/2000
     }
 
 trace = run(scenario_1)
