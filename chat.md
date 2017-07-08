@@ -83,3 +83,11 @@ Unfortunately, all I know about Keras is its Neural Network (NN) part, which I o
 3. What's more, yesterday I read a post comparing tabular Q, DQN, Asynchronous Advantage Actor-Critic (A3C) and Evolutionary algorithms in flappybird. It turns out that they are seuqentially better than the previous one -- more effcient to converge. Also, I think the idea of ``teaching'' the agent to learn how to schedule is more similar to the Evolutionary algorithm than Q learning.
 
 What do you think of it?
+
+---
+
+July 08, Yang
+
+I made several changes in `sS.py`, testing the efficiency of initializing the Q tabular with given values. (I think this is what we will do to the Tetris-like one, if we're going to use Q Learning.) The result seems not bad but I'm not sure whether I'm setting the initial values correctly according to the (s,S) policy.
+
+I'll look up the document of `Keras` tonight and hope I can figure out how to switch from tabular Q to deep Q.
