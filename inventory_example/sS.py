@@ -7,7 +7,7 @@
 # order the EOQ - I. In essence then, the optimal policy is an s,S
 # policy.
 
-# For stochastic demand an s, S policy is optimal. With the demand
+# For stochastic demand an (s,S) policy is optimal. With the demand
 # function D below we can alternate between choosing deterministic or
 # stochastic demand.
 
@@ -21,23 +21,24 @@ import matplotlib.pylab as plt
 
 from matplotlib import style
 style.use('ggplot')
+plt.rcParams['axes.facecolor']='#f2f2f2'
 
 np.random.seed(3)
 np.set_printoptions(linewidth=1000)
 
-# demand function
-def D():
-    # For stochastic  demand: 
-    return np.random.randint(1,5)
-    # For deterministic demand
-    # return 4
-
-
 h = 1  # holding cost per unit per time
 p = 20 # selling price per item
-K = 10  # order cost
-I_max = 20
-Q_max = 10  # maximum order size
+K = 8  # order cost
+ED = 4 # E(D)
+I_max = 20 # maximum iventory size 
+Q_max = 10 # maximum order size
+
+# demand function
+def D():
+    # For stochastic demand: 
+    return np.random.randint(1, ED*2-1)
+    # For deterministic demand
+    # return ED
 
 # inventory levels: 0, ..., I_max 
 state_space = np.array(range(I_max+1))
@@ -48,8 +49,9 @@ action_space = np.array(range(Q_max+1))
 Q = np.zeros([len(state_space), len(action_space)])
 
 # Here  we can initialize the ordering policy.
-# This is an s,S policy with S = 5, and s = 0.
-# Q[0, 5] = Q[1, 4] = Q[2,3] = Q[3,2] = 1000
+# This is an (s,S) policy with s = ED and S = 2*ED-1.
+# for i in range(ED,2*ED):
+# 	Q[i,2*ED-i-1] = 1000
 
 
 def update(I, thres):
@@ -100,7 +102,7 @@ def print_Q():
     print(Q)
     print(np.argmax(Q, axis=1))
 
-    EOQ = np.sqrt(2*K*D()/h)
+    EOQ = np.sqrt(2*K*ED/h)
     print("EOQ: ", EOQ)
 
 
@@ -108,13 +110,18 @@ def plot_decision_trace(trace, scenario):
     # Plot the optimal decision (according to the Q values) per state
     # as a function of the period
 
-    plt.figure()
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
     for i in action_space[::-1]: # to make the I=0 line on the top
-        plt.plot(trace[:,i], 'o-', markersize=2, label=i)
+        ax.plot(trace[:,i], '-', label=i, lw=2)
     plt.xlabel('episode')
     # plt.title('Demand and demand during leadtime')
     plt.grid(True)
-    plt.legend(loc='center right')
+    plt.yticks(range(11))
+    # Shrink current axis by 20%
+    box = ax.get_position()
+    ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])
+    ax.legend(loc='center left', bbox_to_anchor=(1, 0.5), frameon=0)
     plt.show()
     # fname = 'eoq_learning_{}.tex'.format(scenario['name'])
     # tikz_save(fname, figureheight='5cm', figurewidth='12cm')
@@ -123,15 +130,15 @@ def plot_decision_trace(trace, scenario):
 # Set learning parameters
 scenario_1 = {
     'name': "scenario_1",
-    'lr': .05,
+    'lr': .10,
     'y': .99,
-    'length_episode': 1000,
-    'num_episodes': 5000,
-    'beta': lambda x: 0.5, 
+    'length_episode': 500,
+    'num_episodes': 2000,
+    'beta': lambda x: 0.2, 
     # 'beta': lambda x: 0.8 + 0.2*x/2000
     }
 
 trace = run(scenario_1)
 print_Q()
-#plot_decision_trace(trace, scenario_1)
+plot_decision_trace(trace, scenario_1)
 
