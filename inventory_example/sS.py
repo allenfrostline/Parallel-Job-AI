@@ -53,11 +53,15 @@ state_space = np.array(range(I_max+1))
 # order quantities: 0, ..., Q_max
 action_space = np.array(range(Q_max+1))
 
-# eliminate impossible orders
-def possible_action(I):
+# Eliminate impossible orders, i.e., to prevent order sizes such that
+# the inventory grows beyond its upper bound.
+
+# Actually, this is a matter of taste. You say that the on hand inventory at the start of the period (i.e.,  on-hand inventory at the end of the previous period plus the order size u)  cannot exceed the inventory space. In the rule below, search for the line with **, I say that the end of period inventory (i.e., start of inventory minus demand) cannot exceed the max inventory level. All in all, its a modeling decision. I think we should stick to one rule: either your proposal, which is fine to me, or mine. In the first case, we can change the ** line to quoted alternative. Its ok if you choose.
+
+def allowed_actions(I):
     tmp = []
     for u in action_space:
-        if u <= I_max - I:
+        if I + u <= I_max:
             tmp.append(u)
     return np.array(tmp)
 
@@ -69,10 +73,11 @@ def update(I, thres):
     if np.random.rand(1) < thres:
         u = np.argmax(Q[I, :])
     else:
-        u = np.random.choice(possible_action(I))
+        u = np.random.choice(allowed_actions(I))
     # u is the amount we are going to order
     S = min(I + u, D())  # sales
-    I1 = min(I + u - S, I_max)  # the inventory level at the end of the period
+    I1 = min(I + u - S, I_max)  # ** # the inventory level at the end of the period
+    #I1 = I + u - S  # the inventory level at the end of the period
     R = p*S - h*I1 - K*(u>0) # the reward
 
     return u, I1, R
@@ -147,7 +152,7 @@ scenario_1 = {
     'lr': .05,
     'y': .99,
     'length_episode': 50, # it turns out that along this axis the convergence is pretty fast, so no need for large lengths
-    'num_episodes': 2000, # more episodes correspond with lower learning rate
+    'num_episodes': 10000, # more episodes correspond with lower learning rate
     'beta': lambda x: 0.6,
     # 'beta': lambda x: 0.6 + 0.4*x/1000
     }

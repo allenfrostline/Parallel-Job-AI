@@ -91,3 +91,29 @@ July 08, Yang
 I made several changes in `sS.py`, testing the efficiency of initializing the Q tabular with given values. (I think this is what we will do to the Tetris-like one, if we're going to use Q Learning.) The result seems not bad but I'm not sure whether I'm setting the initial values correctly according to the (s,S) policy.
 
 I'll look up the document of `Keras` tonight and hope I can figure out how to switch from tabular Q to deep Q.
+
+--------------
+
+July 12, NIcky
+
+the last couple of days I tried to prove something (for some other paper) that was wrong. Proving something that is wrong is typically hard :-) It took me several days to finally give in, and try to disprove it. That took me just half an hour ...
+
+About the s S problem, for your background: the proof that an s, S type of policy is optimal (for stationary demand, convex inventory cost and ordering cost) was given in 1960 or so. It then took 25 years or so to find an efficient algorithm to actually compute the optimal s and S. Interestingly, it is not a simple problem. Moreover, we can consider joint ordering problems, i.e., an inventory with mutltiple sku's (stock keeping units), and then try to find an optimal policy. This is a much, much harder problem, and has not been solved up to now. Besides this, with multiple items it is easy to get many, many states. Suppose each sku can have 50 states or so. Take 10 sku's, then we have 50^10 states. And if that is still doalbe with tabular learning, we can take 20 sku's...
+
+I don't mind about Q learning or not. It was just my initial idea as complete novice in the field. If you have better ideas, I follow you.
+
+The flappy bird example you showed me is indeed very interesting, and very fast. I wonder how much of flappy bird properties they actually used to make it that smart. One reason (for what it is worth) to chose Q learning was that I thought it can handle many sorts of problems and requires not much understanding (human tuning) of the solution method. Thus, is is a flexible method, and adaptable to other, related, scheduling problems. If it isn't, then let me know. I don't mind about what tool we use, as long as you find it interesting, and we get some results.
+
+You mention numba. I didn't think of this. Perhaps you are right, but as far as I recall, numba is not useful for iterations for queueing and/or inventory systems. It is not possible to use intermediate results of the arrays to compute later elements of the array. (Or am I wrong here?)
+
+I'll check your ss tuning parameters
+
+FYI: I just came across lualatex. With this it is possible to build very nicely laid out graphs with tikz, but also do computations in latex with lua (some programming language similar to python).  In case you are interested, let me know. Then I'll mail you a nice example doc.
+
+for the ss example: can't we use the info obtained by the trace in some way?
+
+I also added a few comments on the ss example. Please check it (it not much) and then remove what is no longer relevant.
+
+Nice plots for the ss policy.
+
+I wonder why it takes so much time before the learning algo to converge to some like the sS policy. If I find time tomorrow, I'll do some simulations to see how sensitive the cost is to the specific values of s and S. I actually guess that the cost is not very sensitive to both s and S, hence it is hard to find (by Q learning) the best s and S. 
