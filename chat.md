@@ -71,3 +71,23 @@ Do you know how to get the sS example to something that can be used by keras, or
 The sS policy is interesting. To prevent loss it is best to set s to something like the maximal demand (assuming that the demand is bounded), and then order to some S. This S must be related to the cost of ordering and holding cost.
 
 I'll play with the code a bit tonight.
+
+---
+
+July 08, Yang
+
+Unfortunately, all I know about Keras is its Neural Network (NN) part, which I once used in stock price prediction, a supervised learning case. Also, I don't think it is Keras that will help with the numerical part. The problem consists of 3 aspects:
+
+1. Our algorithm in `sS.py` is yet a tabular Q Learning, not a Deep Q Network (DQN), so there won't be any layers or NN related stuff, and thus Keras, or its backend, Google's Tensorflow, will not help. To speed up the training, what comes to me is using `numba` in iterations, etc. 
+2. The reason we don't use DQN in `sS.py`, I think, is because it's overly complicated compared with our state and action space. However, for the Tetris-like problem, there are much more possible states and $n$ actions ($n$ for the number of columns), so I guess eventually we need DQN.
+3. What's more, yesterday I read a post comparing tabular Q, DQN, Asynchronous Advantage Actor-Critic (A3C) and Evolutionary algorithms in flappybird. It turns out that they are seuqentially better than the previous one -- more effcient to converge. Also, I think the idea of ``teaching'' the agent to learn how to schedule is more similar to the Evolutionary algorithm than Q learning.
+
+What do you think of it?
+
+---
+
+July 08, Yang
+
+I made several changes in `sS.py`, testing the efficiency of initializing the Q tabular with given values. (I think this is what we will do to the Tetris-like one, if we're going to use Q Learning.) The result seems not bad but I'm not sure whether I'm setting the initial values correctly according to the (s,S) policy.
+
+I'll look up the document of `Keras` tonight and hope I can figure out how to switch from tabular Q to deep Q.
