@@ -117,3 +117,18 @@ I also added a few comments on the ss example. Please check it (it not much) and
 Nice plots for the ss policy.
 
 I wonder why it takes so much time before the learning algo to converge to some like the sS policy. If I find time tomorrow, I'll do some simulations to see how sensitive the cost is to the specific values of s and S. I actually guess that the cost is not very sensitive to both s and S, hence it is hard to find (by Q learning) the best s and S. 
+
+---
+
+July 13, Yang
+
+I've been reading stuff about Q learning and Evolutionary Algo, and writing some small scripts for comparison. I hope eventually I can give something in between and can be easily applied to scheduling problems like ours. 
+
+As for `numpy`, I agree with you. I tried it but scarcely did it help. Same with `lru_cache` decorators. Therefore, I think the only way out here is either of these two:
+
+1. Move from tabular Q to Deep Q, which is a similar but actually quite different model.
+2. Embed `C` or `C++` functions into where is now iterations in `Python`.
+
+Currently I'm following the second path, just to avoid changing the model.
+
+P.S. I recommend you to check out Google's opeartions research tools. They're written in `C` or `C++` I think, and wrapped for easy using in `Python`. There're no machine learning in the package but the framework is interesting.
