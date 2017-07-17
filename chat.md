@@ -132,3 +132,9 @@ As for `numpy`, I agree with you. I tried it but scarcely did it help. Same with
 Currently I'm following the second path, just to avoid changing the model.
 
 P.S. I recommend you to check out Google's opeartions research tools. They're written in `C` or `C++` I think, and wrapped for easy using in `Python`. There're no machine learning in the package but the framework is interesting.
+
+--- 
+
+July 17, Yang
+
+Excuse me, but could you please explain which model we're using according to this [pdf](https://ocw.mit.edu/courses/sloan-school-of-management/15-772j-d-lab-supply-chains-fall-2014/lecture-notes/MIT15_772JF14_Lec14.pdf)? On page 23 there's a table comparing EOQ, Newsvendor, Base Stock and (R,Q) models, where to me it seems Base Stock sounds pretty close to ours. (But there's no ``s'', right?) I'm still reading stuff about (s,S) policy and this is currently a perplexity to me. Thanks.
