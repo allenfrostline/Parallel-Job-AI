@@ -138,3 +138,8 @@ P.S. I recommend you to check out Google's opeartions research tools. They're wr
 July 17, Yang
 
 Excuse me, but could you please explain which model we're using according to this [pdf](https://ocw.mit.edu/courses/sloan-school-of-management/15-772j-d-lab-supply-chains-fall-2014/lecture-notes/MIT15_772JF14_Lec14.pdf)? On page 23 there's a table comparing EOQ, Newsvendor, Base Stock and (R,Q) models, where to me it seems Base Stock sounds pretty close to ours. (But there's no ``s'', right?) I'm still reading stuff about (s,S) policy and this is currently a perplexity to me. Thanks.
+
+
+July 17, Nicky
+
+NO problem. First I have solve a few integrals. I'll get back to you.
