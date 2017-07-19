@@ -144,3 +144,9 @@ Excuse me, but could you please explain which model we're using according to thi
 July 17, Nicky
 
 NO problem. First I have solve a few integrals. I'll get back to you.
+
+-------
+
+July 18, NIcky
+
+See tex-files/eoq. for an update on the inventory models. If something is not clear, let me know.

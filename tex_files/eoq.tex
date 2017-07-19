@@ -15,8 +15,26 @@
 
 I want to apply $Q$ learning to the EOQ model. First I want to get
 the tabular $Q$ learning algorithm to work.  For this,  I copy from
-Bertsekas, Vol 2, Section 6.4 on $Q$ learning.  Then I'll apply it to the EOQ model.
+Bertsekas, Vol 2, Section 6.4 on $Q$ learning.  Then I'll apply it to the EOQ model. Before diving into the $Q$ learning algorithm, I'll discuss a few basic inventory models. 
 
+\section{Inventory control models}
+\label{sec:invent-contr-models}
+
+The first distinction to be made is continuous-time versus periodic-time inventory models. Since we will simulate (with recursions) inventory systems, we can restrict our attention to periodic-time inventory models. 
+
+For the Economic Order Quantity (EOQ) model, we assume that demand $D$ is deterministic and constant, e.g. 1 unit per period. (Strictly speaking, the EOQ is a continuous-time model, but we describe it here in terms of periodic-time.) There is an order cost $A$, holding cost $h$ per unit inventory per unit time. Replenishments are delivered immediately and and any replenishment size is allowed. Based on this cost model, it is optimal to order when the inventory hits $0$ and to order $Q=\sqrt{2AD/h}$
+
+The $(s,S)$ model deals with random demand. When the inventory hits the set $(-\infty, s]$, a replenishment is issued such that after the receipt of the replenishment, the inventory becomes $S$. 
+The level $s$ is known as the re-order point and  $S$ as the order-up-to level. Note that the inventory level can become less than $s$, thus the order size need \emph{not}  to equal to $S-s$. 
+Note that for deterministic and constant demand, the $(s,S)$ model reduces to the EOQ with $s=0$ and $S=Q$. 
+
+For the basestock model we assume that the reorder cost $A=0$ (or negligible). In that case, there is no reason to replenish in batch sizes larger than $1$. Thus, we set $S=s+1$. 
+
+Another common model is to fix the order size $Q$ (contrary to the $(s,S)$ policy) and trigger a replenishment when the reorder set $(-\infty, r]$ is hit. This is the $(Q,r)$ model. When demand is deterministic, the $(Q,r)$ model becomes the EOQ model with $r=0$. 
+
+Note that we assume that the leadtimes $L$, i.e., the time between issuing a replenishment and receiving it, are $0$.  In the cases we will consider below, the leadtime $L=0$. 
+
+Below we concentrate first on the EOQ model, as this is the simplest possible, but non-trivial, model. Then we extend to stochastic demand. It is known that the for this case, the $(s,S)$-policy is optimal when holding and backlogging cost are convex in the inventory level. Thus, it is interesting to see whether $Q$-learning can figure out the optimal $s$ and $S$. Perhaps this is not so easy: I suspect that the cost function is not very sensitive to $s$ and $S$, (as it the case of the EOQ model). It is easy to check this with a numerical analysis (I have implemented an algorithm in python to compute the optimal $s$ and $S$.)
 
 \section{Q factors}
 \label{sec:q-factors}
