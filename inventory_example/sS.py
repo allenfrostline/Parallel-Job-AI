@@ -41,11 +41,11 @@ Q_max = 10 # maximum order size
 # demand function
 def D():
     # For stochastic  demand: 
-    return np.random.randint(1,10)
+    # return np.random.randint(1,10)
     # For stochastic demand: 
-    return np.random.randint(1, ED*2-1)
+    # return np.random.randint(1, ED*2-1)
     # For deterministic demand
-    # return ED
+    return ED
 
 # inventory levels: 0, ..., I_max 
 state_space = np.array(range(I_max+1))
