@@ -150,3 +150,15 @@ NO problem. First I have solve a few integrals. I'll get back to you.
 July 18, NIcky
 
 See tex-files/eoq. for an update on the inventory models. If something is not clear, let me know.
+
+---
+
+July 21, Allen
+
+Thanks for the `eoq.tex`, now I'm much more clear about this problem. As for the codes, I've made some generalization. Please see the file `models` in which I add three scripts:
+
+1. `qlearning.py`: the general tabular model
+2. `frozenlake.py`: the frozen lake problem
+3. `inventory.py`: the inventory problem
+
+2 and 3 are using the general model written in 1. I hope I'm not missing anything important -- at least the optimal policy for the frozen lake problem seems pretty good. 
