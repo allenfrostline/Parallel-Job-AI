@@ -13,13 +13,13 @@ class AI(object):
         self.heuristics = {
 
             heuristic.avg_height: -1,
-            heuristic.max_height: -2,
+            heuristic.max_height: -3,
             heuristic.scv_machines: -10,
-            heuristic.avg_machines: -20,
-            heuristic.max_machines: -50,
+            heuristic.avg_machines: -30,
+            heuristic.max_machines: -90,
             heuristic.scv_hours: -100,
-            heuristic.avg_hours: -200,
-            heuristic.max_hours: -500,
+            heuristic.avg_hours: -300,
+            heuristic.max_hours: -900,
         
         }
         self.instant_play = True

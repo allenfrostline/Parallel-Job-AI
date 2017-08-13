@@ -1,6 +1,5 @@
 import numpy as np
 import matplotlib.pyplot as plt
-np.random.seed(222)
 np.set_printoptions(linewidth=1000,threshold=np.inf,suppress=True)
 
 
@@ -18,7 +17,8 @@ class network:
 		self.initial = initial
 		self.terminal = terminal
 
-	def train(self,alpha=0.05,gamma=0.9,episodes=1000,epsilon=0.01,maxiter=100000,verbose=0):
+	def train(self,alpha=0.05,gamma=0.9,episodes=1000,epsilon=0.01,maxiter=100000,verbose=0,seed=222):
+		np.random.seed(seed)
 		randrow = lambda X: X[np.random.randint(0,len(X))]
 		idx = lambda X,x: X.index(x)
 		# alpha: learning rate
@@ -48,7 +48,7 @@ class network:
 				a_idx = idx(self.A,self.a)
 				sp_idx = idx(self.S,s_prime)
 				dQ = alpha * (r_prime + gamma * np.max(self.Q[sp_idx,:]) - self.Q[s_idx,a_idx])
-				self.error[-1] = abs(dQ)
+				self.error[-1] = dQ**2
 				self.Q[s_idx,a_idx] += dQ
 				self.a = a_prime
 				self.s = s_prime
@@ -65,11 +65,11 @@ class network:
 			fig = plt.figure(figsize=(10,10))
 			ax1 = fig.add_subplot(211)
 			ax1.plot(range(episodes),self.score_avg,'r-')
-			plt.ylabel('score')
+			plt.ylabel('scores')
 			plt.xlabel('episodes')
 			ax2 = fig.add_subplot(212)
 			ax2.plot(range(episodes),self.error_avg,'r-')
-			plt.ylabel('error')
+			plt.ylabel('squared errors')
 			plt.xlabel('episodes')
 			plt.show()
 

@@ -153,7 +153,7 @@ See tex-files/eoq. for an update on the inventory models. If something is not cl
 
 ---
 
-July 21, Allen
+July 21, Yang
 
 Thanks for the `eoq.tex`, now I'm much more clear about this problem. As for the codes, I've made some generalization. Please see the file `models` in which I add three scripts:
 
@@ -162,3 +162,13 @@ Thanks for the `eoq.tex`, now I'm much more clear about this problem. As for the
 3. `inventory.py`: the inventory problem
 
 2 and 3 are using the general model written in 1. I hope I'm not missing anything important -- at least the optimal policy for the frozen lake problem seems pretty good. 
+
+---
+
+Aug. 13, Yang
+
+Hi. It's been long time since our last update, and I know you must be very busy. In the past few weeks I've been focusing on the algorithm I wrote in the `models` file and tuning the parameters. Apart from that, I've read a bunch of papers (picked some in the `papers` file) and also found a great blog which tell you how to write a deep Q network and its extensions like double Q and apprentice-Q, step by step. The model now we have in the `qlearning.py` is still the tabular one, learning slowly when the action and state spaces are huge. I'm just a step or two before I can change it into a deep Q one with neural networks simplifying and functionizing the Q (from a table to a function). However, I have to pause here as I'm faced with my GRE exam on August 25, which is crucial to my graduate school application. In the following 10 days I'll be only reviewing for the exam. Just like once you predicted: it's quite possible that I'll have to make it the bachelor thesis.
+
+Also, I've drawn a list of programs I would apply for later this year, and I wish you can give me some comments on it, as some may be too difficult for me and some deviating from my career path. For each program I'm supposed to submit 3 reference letters but the number of professors who would write me this letter is limited, so I have to narrow the range. It would be really nice if you would do me this favor, and I'll send you my list right away.
+
+Best.

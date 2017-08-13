@@ -9,9 +9,9 @@ from threading import Lock
 np.random.seed(123)
 
 # Factory config
-MACHINES = 6
+MACHINES = 7
 SCHEDULE = 28
-BOTTLENECK = 12
+BOTTLENECK = 14
 
 AVG_DAILY_JOB = 2
 
